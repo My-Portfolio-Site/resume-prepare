@@ -13,6 +13,8 @@
 		"cf-typegen": "wrangler types --env-interface CloudflareEnv env.d.ts"
 	},
 	"dependencies": {
+		"docx": "^9.2.0",
+		"file-saver": "^2.0.5",
 		"next": "15.1.6",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0"
@@ -20,6 +22,7 @@
 	"devDependencies": {
 		"@cloudflare/next-on-pages": "^1.13.8",
 		"@cloudflare/workers-types": "^4.20250224.0",
+		"@types/file-saver": "^2.0.7",
 		"@types/node": "^20",
 		"@types/react": "^19",
 		"@types/react-dom": "^19",
