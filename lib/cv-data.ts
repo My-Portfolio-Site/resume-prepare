@@ -7,90 +7,78 @@ export const experiences = [
       month: 11,
       year: 2017,
     },
+    endDate: {
+      month: 11,
+      year: 2025,
+    },
     company: {
       name: "BlackRock",
+      location: "London, UK",  // Add location
+      industry: "Financial Services"  // Add industry
     },
+    achievements: [  // Add key achievements
+      "Improved application performance by 40% through optimization",
+      "Led team of 3 developers in new feature development",
+      "Implemented CI/CD pipeline reducing deployment time by 60%"
+    ],
+    technologies: [  // Add specific technologies
+      "Angular 12",
+      "Java 11",
+      "Spring Boot",
+      "PostgreSQL",
+      "AWS"
+    ]
   },
   {
     isCurrent: false,
-    summary:
-      "Full-stack developer working with Angular, Node and TypeScript. Working for the iShares platform. Emphasis on Dev-ops and developing the continous integration pipeline.",
-    title: "Software Developer",
-    endDate: {
+    summary: "Full-stack developer working with Angular and Java. Working for the iShares platform",
+    title: "Associate Software Developer",
+    startDate: {
       month: 11,
       year: 2017,
     },
-    startDate: {
-      month: 10,
-      year: 2016,
-    },
-    company: {
-      name: "Torch Markets",
-    },
-  },
-  {
-    isCurrent: false,
-    summary:
-      "Used ASP.NET MVC 5 to produce a diversity data collection tool for the future of British television.\n\nUsed AngularJS and C# best practices. Technologies used include JavaScript, ASP.NET MVC 5, SQL, Oracle, SASS, Bootstrap, Grunt.",
-    title: "Software Developer",
     endDate: {
-      month: 10,
-      year: 2016,
-    },
-    startDate: {
-      month: 3,
-      year: 2015,
+      month: 11,
+      year: 2019,
     },
     company: {
-      name: "Soundmouse",
+      name: "BlackRock",
+      location: "London, UK",  // Add location
+      industry: "Financial Services"  // Add industry
     },
-  },
-  {
-    isCurrent: false,
-    summary:
-      "Develop web commerce platforms for constious high profile clients.\n\nCreated a log analysis web application with the Play Framework in Java, incorporating Test Driven Development. It asynchronously uploads and processes large (2 GB) log files, and outputs meaningful results in context with the problem. \n\nAnalysis  and  development  of  the payment system infrastructure and user accounts section to be used by several clients of the company such as Waitrose, Tally Weijl, DJ Sports, Debenhams, Ann Summers, John Lewis and others.\n\nTechnologies used include WebSphere Commerce, Java, JavaScript and JSP.",
-    title: "Java Developer",
-    endDate: {
-      month: 10,
-      year: 2014,
-    },
-    startDate: {
-      month: 3,
-      year: 2013,
-    },
-    company: {
-      name: "Soundmouse",
-    },
+    achievements: [  // Add key achievements
+      "Improved application performance by 40% through optimization",
+      "Led team of 3 developers in new feature development",
+      "Implemented CI/CD pipeline reducing deployment time by 60%"
+    ],
+    technologies: [  // Add specific technologies
+      "Angular 12",
+      "Java 11",
+      "Spring Boot",
+      "PostgreSQL",
+      "AWS"
+    ]
   },
 ];
 
 export const education = [
   {
-    degree: "Master of Science (MSc)",
+    degree: "BTech",
     fieldOfStudy: "Computer Science",
-    notes:
-      "Exam Results: 1st Class with Distinction, Dissertation: 1st Class with Distinction\n\nRelevant Courses: Java and C# Programming, Software Engineering, Artificial Intelligence, \nComputational Photography, Algorithmics, Architecture and Hardware.\n\nCreated a Windows 8 game in JavaScript for the dissertation. \n\nCreated an award-winning 3D stereoscopic game in C# using XNA.",
-    schoolName: "University College London",
+    percentage: 62,
+    cgpa: 2.3,
+    schoolName: "Aditya Engineering College",
+    university: "JNTUK",
+    address: "Surampalem, Andhra Pradesh, India",
     startDate: {
       year: 2012,
+      month: 8
     },
     endDate: {
       year: 2013,
+      month: 8
     },
-  },
-  {
-    degree: "Bachelor of Engineering (BEng)",
-    fieldOfStudy: "Material Science and Engineering",
-    notes:
-      "Exam Results: 2:1, Dissertation: 1st Class with Distinction\n\nRelevant courses: C Programming, Mathematics and Business for Engineers.",
-    schoolName: "Imperial College London",
-    startDate: {
-      year: 2009,
-    },
-    endDate: {
-      year: 2012,
-    },
-  },
+  }
 ];
 
 export const skills = [
@@ -114,3 +102,31 @@ export const achievements = [
     name: "Oracle Certified Expert",
   },
 ];
+
+export const certifications = [
+  {
+    issuer: "Coursera",
+    name: "Full Stack Web Development Cert",
+    completed: "2021",
+    credentialId: ""
+  },
+  {
+    issuer: "Udemy",
+    name: "React - The Complete Guide Cert",
+    completed: "2020",
+    credentialId: ""
+  }
+]
+
+export const courses = [
+  {
+    issuer: "Coursera",
+    name: "Full Stack Web Development",
+    completed: "2021",
+  },
+  {
+    issuer: "Udemy",
+    name: "React - The Complete Guide",
+    completed: "2020",
+  }
+]

@@ -22,32 +22,46 @@ interface Experience {
 }
 
 interface Education {
-  schoolName: string;
-  startDate: { year: number };
-  endDate: { year: number };
-  fieldOfStudy: string;
-  degree: string;
-  notes: string;
+  startDate: { year: number, month: number };
+  endDate: { year: number, month: number };
+  degree: string,
+  fieldOfStudy: string,
+  percentage: number,
+  cgpa: number,
+  schoolName: string,
+  university: string,
+  address: string,
+
 }
 
 interface Skill {
   name: string;
 }
 
-interface Achievement {
+interface Course {
   name: string;
   issuer: string;
+  completed: string;
+}
+
+interface Certification {
+  name: string;
+  issuer: string;
+  completed: string;
+  credentialId?: string;
 }
 
 export class DocumentCreator {
-  public create([experiences, educations, skills, achievements]: [Experience[], Education[], Skill[], Achievement[]]): Document {
+  public create([experiences, educations, skills, courses, certifications]: [Experience[], Education[], Skill[], Course[], Certification[]]): Document {
     const document = new Document({
+      creator: "Keshab Manni",
+      description: "My extremely interesting document",
       sections: [
         {
           children: [
             new Paragraph({
               text: "Dolan Miu",
-              heading: HeadingLevel.TITLE
+              heading: HeadingLevel.HEADING_1
             }),
             this.createContactInfo(PHONE_NUMBER, PROFILE_URL, EMAIL),
             this.createHeading("Education"),
@@ -67,7 +81,7 @@ export class DocumentCreator {
                 );
 
                 const bulletPoints = this.splitParagraphIntoBullets(
-                  education.notes
+                  education.address
                 );
                 bulletPoints.forEach(bulletPoint => {
                   arr.push(this.createBullet(bulletPoint));
@@ -107,8 +121,9 @@ export class DocumentCreator {
             this.createHeading("Skills, Achievements and Interests"),
             this.createSubHeading("Skills"),
             this.createSkillList(skills),
-            this.createSubHeading("Achievements"),
-            ...this.createAchivementsList(achievements),
+            this.createSubHeading("Certifications/Courses"),
+            ...this.createCoursesList(courses),
+            ...this.createCertificationsList(certifications),
             this.createSubHeading("Interests"),
             this.createInterests(
               "Programming, Technology, Music Production, Web Design, 3D Modelling, Dancing."
@@ -118,11 +133,6 @@ export class DocumentCreator {
               "Dr. Dean Mohamedally Director of Postgraduate Studies Department of Computer Science, University College London Malet Place, Bloomsbury, London WC1E d.mohamedally@ucl.ac.uk"
             ),
             new Paragraph("More references upon request"),
-            new Paragraph({
-              text:
-                "This CV was generated in real-time based on my Linked-In profile from my personal website www.dolan.bio.",
-              alignment: AlignmentType.CENTER
-            })
           ]
         }
       ]
@@ -217,11 +227,22 @@ export class DocumentCreator {
   }
 
   // tslint:disable-next-line:no-any
-  public createAchivementsList(achivements: any[]): Paragraph[] {
-    return achivements.map(
-      achievement =>
+  public createCoursesList(courses: any[]): Paragraph[] {
+    return courses.map(
+      course =>
         new Paragraph({
-          text: achievement.name,
+          text: course.name,
+          bullet: {
+            level: 0
+          }
+        })
+    );
+  }
+  public createCertificationsList(Certifications: any[]): Paragraph[] {
+    return Certifications.map(
+      Certification =>
+        new Paragraph({
+          text: Certification.name,
           bullet: {
             level: 0
           }

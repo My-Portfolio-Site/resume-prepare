@@ -6,5 +6,11 @@
   "pages_build_output_dir": ".vercel/output/static",
   "observability": {
     "enabled": true
-  }
+  },
+  "r2_buckets": [
+    {
+      "binding": "BUCKET",
+      "bucket_name": "personal-documents"
+    }
+  ]
 }
