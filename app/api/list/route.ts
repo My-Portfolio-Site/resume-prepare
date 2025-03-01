@@ -12,7 +12,7 @@ export async function GET(request: NextRequest, response: NextResponse) {
     });
     
     const files: string[] = resp.objects.map(object => object.key);
-    console.log(resp.objects);
+    // console.log(resp.objects);
     
     
     console.log("Files retrieved successfully");
