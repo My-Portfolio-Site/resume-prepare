@@ -14,7 +14,7 @@ export default function FileUpload() {
   const [file, setFile] = useState<File>()
 
   async function uploadToR2(data: FormData) {
-    const response = await fetch('/api/upload', {
+    const response = await fetch('/api/documents/upload', {
       method: 'POST',
       body: data,
     })

@@ -26,16 +26,16 @@ export const EducationEditForm = ({ editingItem, onSave, onCancel }: EducationEd
     if (!formData.degree.trim()) {
       newErrors.degree = 'Degree is required'
     }
-    if (!formData.fieldOfStudy.trim()) {
+    if (!formData.field_of_study.trim()) {
       newErrors.fieldOfStudy = 'Field of study is required'
     }
-    if (!formData.schoolName.trim()) {
+    if (!formData.school_name.trim()) {
       newErrors.schoolName = 'School name is required'
     }
-    if (!validateDate(formData.startDate.month, formData.startDate.year)) {
+    if (!validateDate(formData.start_month || 0, formData.start_year)) {
       newErrors.startDate = 'Invalid start date'
     }
-    if (!validateDate(formData.endDate.month, formData.endDate.year)) {
+    if (!validateDate(formData.end_month || 0, formData.end_year || 0)) {
       newErrors.endDate = 'Invalid end date'
     }
 
@@ -68,10 +68,10 @@ export const EducationEditForm = ({ editingItem, onSave, onCancel }: EducationEd
         <input
           type='text'
           className={`w-full border rounded p-2 ${errors.fieldOfStudy ? 'border-red-500' : ''}`}
-          value={formData.fieldOfStudy}
-          onChange={(e) => setFormData({ ...formData, fieldOfStudy: e.target.value })}
+          value={formData.field_of_study}
+          onChange={(e) => setFormData({ ...formData, field_of_study: e.target.value })}
         />
-        {errors.fieldOfStudy && <p className='text-red-500 text-sm mt-1'>{errors.fieldOfStudy}</p>}
+        {errors.field_of_study && <p className='text-red-500 text-sm mt-1'>{errors.field_of_study}</p>}
       </div>
 
       <div className='grid grid-cols-2 gap-4'>
@@ -80,10 +80,10 @@ export const EducationEditForm = ({ editingItem, onSave, onCancel }: EducationEd
           <input
             type='text'
             className={`w-full border rounded p-2 ${errors.schoolName ? 'border-red-500' : ''}`}
-            value={formData.schoolName}
-            onChange={(e) => setFormData({ ...formData, schoolName: e.target.value })}
+            value={formData.school_name}
+            onChange={(e) => setFormData({ ...formData, school_name: e.target.value })}
           />
-          {errors.schoolName && <p className='text-red-500 text-sm mt-1'>{errors.schoolName}</p>}
+          {errors.school_name && <p className='text-red-500 text-sm mt-1'>{errors.school_name}</p>}
         </div>
         <div>
           <label className='block text-sm font-medium mb-1'>University</label>
@@ -102,7 +102,7 @@ export const EducationEditForm = ({ editingItem, onSave, onCancel }: EducationEd
           <input
             type='number'
             className='w-full border rounded p-2'
-            value={formData.percentage}
+            value={formData.percentage || 0}
             onChange={(e) => setFormData({ ...formData, percentage: Number(e.target.value) })}
             step='0.01'
             min='0'
@@ -114,7 +114,7 @@ export const EducationEditForm = ({ editingItem, onSave, onCancel }: EducationEd
           <input
             type='number'
             className='w-full border rounded p-2'
-            value={formData.cgpa}
+            value={formData.cgpa || 0}
             onChange={(e) => setFormData({ ...formData, cgpa: Number(e.target.value) })}
             step='0.01'
             min='0'
@@ -140,10 +140,10 @@ export const EducationEditForm = ({ editingItem, onSave, onCancel }: EducationEd
             <input
               type='number'
               className={`border rounded p-2 ${errors.startDate ? 'border-red-500' : ''}`}
-              value={formData.startDate.month}
+              value={formData.start_month || 0}
               onChange={(e) => setFormData({
                 ...formData,
-                startDate: { ...formData.startDate, month: Number(e.target.value) }
+                start_month: Number(e.target.value)
               })}
               placeholder='Month'
               min={1}
@@ -152,10 +152,10 @@ export const EducationEditForm = ({ editingItem, onSave, onCancel }: EducationEd
             <input
               type='number'
               className={`border rounded p-2 ${errors.startDate ? 'border-red-500' : ''}`}
-              value={formData.startDate.year}
+              value={formData.start_year}
               onChange={(e) => setFormData({
                 ...formData,
-                startDate: { ...formData.startDate, year: Number(e.target.value) }
+                start_year: Number(e.target.value)
               })}
               placeholder='Year'
               min={1900}
@@ -170,10 +170,10 @@ export const EducationEditForm = ({ editingItem, onSave, onCancel }: EducationEd
             <input
               type='number'
               className={`border rounded p-2 ${errors.endDate ? 'border-red-500' : ''}`}
-              value={formData.endDate.month}
+              value={formData.end_month || 0}
               onChange={(e) => setFormData({
                 ...formData,
-                endDate: { ...formData.endDate, month: Number(e.target.value) }
+                end_month: Number(e.target.value)
               })}
               placeholder='Month'
               min={1}
@@ -182,10 +182,10 @@ export const EducationEditForm = ({ editingItem, onSave, onCancel }: EducationEd
             <input
               type='number'
               className={`border rounded p-2 ${errors.endDate ? 'border-red-500' : ''}`}
-              value={formData.endDate.year}
+              value={formData.end_year || 0}
               onChange={(e) => setFormData({
                 ...formData,
-                endDate: { ...formData.endDate, year: Number(e.target.value) }
+                end_year: Number(e.target.value)
               })}
               placeholder='Year'
               min={1900}
@@ -197,7 +197,7 @@ export const EducationEditForm = ({ editingItem, onSave, onCancel }: EducationEd
       </div>
 
       {/* Optional sections */}
-      <div>
+      {/* <div>
         <label className='block text-sm font-medium mb-1'>Achievements</label>
         {(formData.achievements || []).map((achievement, index) => (
           <div key={index} className='flex gap-2 mb-2'>
@@ -233,7 +233,7 @@ export const EducationEditForm = ({ editingItem, onSave, onCancel }: EducationEd
         >
           <PlusIcon/>
         </button>
-      </div>
+      </div> */}
 
       <div className='flex justify-end gap-2'>
         <button type='button' onClick={onCancel} className='px-4 py-2 border rounded'>
@@ -247,36 +247,48 @@ export const EducationEditForm = ({ editingItem, onSave, onCancel }: EducationEd
   )
 }
 
-export default function EducationTab({ onEdit }: { onEdit: (item: Education) => void }) {
+export default function EducationTab({ onEdit, onDelete }: { onEdit: (item: Education) => void, onDelete: (item: Education) => void}) {
   const emptyEducation: Education = {
+    id: '',
+    user_id: '', // IMPORTANT: Placeholder, set correct user_id before saving
+    is_current: false,
     degree: '',
-    fieldOfStudy: '',
-    percentage: 0,
-    cgpa: 0,
-    schoolName: '',
+    field_of_study: '',
+    percentage: null,
+    cgpa: null,
+    school_name: '',
     university: '',
     address: '',
-    startDate: { month: new Date().getMonth() + 1, year: new Date().getFullYear() },
-    endDate: { month: new Date().getMonth() + 1, year: new Date().getFullYear() },
-    achievements: [],
+    start_month: null,
+    start_year: 0,
+    end_month: null,
+    end_year: null,
+    created_at: '', // DB managed
+    updated_at: '', // DB managed
   }
 
   return (
-    <div className='space-y-4'>
+    <div className='space-y-4 min-w-[450px]'>
       <AddNewSectionButton onClick={() => onEdit(emptyEducation)} />
       {education.map((edu, index) => (
         <div key={index} className='border p-4 rounded-lg bg-white relative'>
           <div className='absolute top-2 right-2'>
+          <button
+              onClick={() => onDelete(edu)}
+              className='p-1 text-red-500 hover:text-red-700'
+            >
+              <DeleteIcon className='h-5 w-5 mr-2' />
+            </button>
             <button onClick={() => onEdit(edu)} className='p-1 hover:text-blue-600'>
               <PencilIcon className='h-5 w-5' />
             </button>
           </div>
-          <h3 className='font-bold text-lg'>{edu.degree} in {edu.fieldOfStudy}</h3>
-          <p className=''>{edu.schoolName}</p>
+          <h3 className='font-bold text-lg'>{edu.degree} in {edu.field_of_study}</h3>
+          <p className=''>{edu.school_name}</p>
           <p className='text-sm '>University: {edu.university}</p>
           <p className='text-sm text-gray-500'>{edu.address}</p>
           <p className='text-sm text-gray-500'>
-            {edu.startDate.month}/{edu.startDate.year} - {edu.endDate.month}/{edu.endDate.year}
+            {edu.start_month}/{edu.start_year} - {edu.is_current ? 'On Going': edu.end_month+'/'+edu.end_year}
           </p>
           <div className='mt-2 flex gap-4'>
             <p className='text-sm'>Percentage: {edu.percentage}%</p>

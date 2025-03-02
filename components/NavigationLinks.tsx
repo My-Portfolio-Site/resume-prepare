@@ -1,11 +1,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-interface NavigationLinksProps {
-  showLabels?: boolean
-}
-
-export default function NavigationLinks({ showLabels = false }: NavigationLinksProps) {
+export default function NavigationLinks() {
   const pathname = usePathname()
 
   const getLinkStyles = (path: string) => {
@@ -14,7 +10,7 @@ export default function NavigationLinks({ showLabels = false }: NavigationLinksP
       isActive 
         ? 'bg-gray-100 text-blue-500' 
         : 'hover:bg-gray-100'
-    } ${showLabels ? 'flex items-center gap-2' : ''}`
+    } ${'md:flex md:items-center md:gap-2'}`
   }
 
   const links = [
@@ -42,11 +38,11 @@ export default function NavigationLinks({ showLabels = false }: NavigationLinksP
   ]
 
   return (
-    <div className={`flex ${showLabels ? 'flex-col' : 'flex-row'} gap-4`}>
+    <div className={'flex md:flex-col flex-row gap-2 bg-white mt-2 py-2 px-3 rounded-lg w-fit'}>
       {links.map(link => (
         <Link key={link.href} href={link.href} className={getLinkStyles(link.href)}>
           {link.icon}
-          {showLabels && <span>{link.label}</span>}
+          <span className='hidden md:flex'>{link.label}</span>
         </Link>
       ))}
     </div>

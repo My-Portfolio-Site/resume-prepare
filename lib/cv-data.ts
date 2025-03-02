@@ -1,132 +1,135 @@
 export const experiences = [
   {
-    isCurrent: true,
+    id: "exp-001",
+    user_id: "user-7263",
+    is_current: true,
     summary: "Full-stack developer working with Angular and Java. Working for the iShares platform",
     title: "Associate Software Developer",
-    startDate: {
-      month: 11,
-      year: 2017,
-    },
-    endDate: {
-      month: 11,
-      year: 2025,
-    },
-    company: {
-      name: "BlackRock",
-      location: "London, UK",  // Add location
-      industry: "Financial Services"  // Add industry
-    },
-    achievements: [  // Add key achievements
+    start_month: 11,
+    start_year: 2017,
+    end_month: null,
+    end_year: null,
+    company_name: "BlackRock",
+    company_location: "London, UK",
+    company_industry: "Financial Services",
+    achievements: [
       "Improved application performance by 40% through optimization",
       "Led team of 3 developers in new feature development",
       "Implemented CI/CD pipeline reducing deployment time by 60%"
     ],
-    technologies: [  // Add specific technologies
+    technologies: [
       "Angular 12",
       "Java 11",
       "Spring Boot",
       "PostgreSQL",
       "AWS"
-    ]
+    ],
+    created_at: "2023-01-01T00:00:00Z",
+    updated_at: "2023-01-01T00:00:00Z"
   },
   {
-    isCurrent: false,
-    summary: "Full-stack developer working with Angular and Java. Working for the iShares platform",
-    title: "Associate Software Developer",
-    startDate: {
-      month: 11,
-      year: 2017,
-    },
-    endDate: {
-      month: 11,
-      year: 2019,
-    },
-    company: {
-      name: "BlackRock",
-      location: "London, UK",  // Add location
-      industry: "Financial Services"  // Add industry
-    },
-    achievements: [  // Add key achievements
+    id: "exp-002",
+    user_id: "user-7263",
+    is_current: false,
+    summary: "Full-stack developer working with React and Node.js",
+    title: "Junior Software Developer",
+    start_month: 11,
+    start_year: 2017,
+    end_month: 11,
+    end_year: 2019,
+    company_name: "BlackRock",
+    company_location: "London, UK",
+    company_industry: "Financial Services",
+    achievements: [
       "Improved application performance by 40% through optimization",
       "Led team of 3 developers in new feature development",
       "Implemented CI/CD pipeline reducing deployment time by 60%"
     ],
-    technologies: [  // Add specific technologies
+    technologies: [
       "Angular 12",
       "Java 11",
       "Spring Boot",
       "PostgreSQL",
       "AWS"
-    ]
-  },
+    ],
+    created_at: "2023-01-01T00:00:00Z",
+    updated_at: "2023-01-01T00:00:00Z"
+  }
 ];
 
 export const education = [
   {
+    id: "edu-001",
+    user_id: "user-7263",
+    is_current: true,
     degree: "BTech",
-    fieldOfStudy: "Computer Science",
+    field_of_study: "Computer Science",
     percentage: 62,
     cgpa: 2.3,
-    schoolName: "Aditya Engineering College",
+    school_name: "Aditya Engineering College",
     university: "JNTUK",
     address: "Surampalem, Andhra Pradesh, India",
-    startDate: {
-      year: 2012,
-      month: 8
-    },
-    endDate: {
-      year: 2013,
-      month: 8
-    },
+    start_month: 8,
+    start_year: 2012,
+    end_month: 8,
+    end_year: 2013,
+    created_at: "2023-01-01T00:00:00Z",
+    updated_at: "2023-01-01T00:00:00Z"
   }
 ];
 
+// Combined accomplishments array with type discrimination
 export const skills = [
   {
-    name: "Angular",
+    id: "skill-001",
+    user_id: "user-7263",
+    type: 'skill' as const,  // explicitly type as const
+    name: 'Automation',
+    skills: [],
+    created_at: "2023-01-01T00:00:00Z"
   },
   {
-    name: "TypeScript",
+    id: "skill-001",
+    user_id: "user-7263",
+    type: 'skill' as const,  // explicitly type as const
+    name: 'Frontend',
+    skills: ["Angular", "TypeScript", "RxJS"],
+    created_at: "2023-01-01T00:00:00Z"
   },
-  {
-    name: "JavaScript",
-  },
-  {
-    name: "NodeJS",
-  },
-];
-
-export const achievements = [
-  {
-    issuer: "Oracle",
-    name: "Oracle Certified Expert",
-  },
-];
-
+]
 export const certifications = [
   {
-    issuer: "Coursera",
-    name: "Full Stack Web Development Cert",
-    completed: "2021",
-    credentialId: ""
+    id: "cert-001",
+    user_id: "user-7263",
+    type: "certification" as const,
+    issuer: "Oracle",
+    name: "Oracle Certified Expert",
+    skills: ["Java", "Oracle DB"],
+    completed: "2022-12-01",
+    credential_id: "OCE123456",
+    created_at: "2023-01-01T00:00:00Z"
   },
-  {
-    issuer: "Udemy",
-    name: "React - The Complete Guide Cert",
-    completed: "2020",
-    credentialId: ""
-  }
 ]
-
 export const courses = [
   {
+    id: "course-001",
+    user_id: "user-7263",
+    type: "course" as const,
     issuer: "Coursera",
     name: "Full Stack Web Development",
-    completed: "2021",
+    skills: ["React", "Node.js", "MongoDB"],
+    completed: "2021-06-15",
+    created_at: "2023-01-01T00:00:00Z"
   },
-  {
-    issuer: "Udemy",
-    name: "React - The Complete Guide",
-    completed: "2020",
-  }
 ]
+export const achievements = [
+  {
+    id: "achievement-001",
+    user_id: "user-7263",
+    type: "achievement" as const,
+    issuer: "Company Hackathon",
+    name: "First Place Winner",
+    skills: ["Innovation", "Programming"],
+    created_at: "2023-01-01T00:00:00Z"
+  }
+];

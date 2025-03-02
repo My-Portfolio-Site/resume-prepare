@@ -10,45 +10,7 @@ import {
 const PHONE_NUMBER = "07534563401";
 const PROFILE_URL = "https://www.linkedin.com/in/dolan1";
 const EMAIL = "docx@docx.com";
-
-interface Experience {
-  company: { name: string };
-  startDate: { month: number; year: number };
-  endDate?: { month: number; year: number };
-  isCurrent: boolean;
-  title: string;
-  summary: string;
-}
-
-interface Education {
-  startDate: { year: number, month: number };
-  endDate: { year: number, month: number };
-  degree: string,
-  fieldOfStudy: string,
-  percentage: number,
-  cgpa: number,
-  schoolName: string,
-  university: string,
-  address: string,
-
-}
-
-interface Skill {
-  name: string;
-}
-
-interface Course {
-  name: string;
-  issuer: string;
-  completed: string;
-}
-
-interface Certification {
-  name: string;
-  issuer: string;
-  completed: string;
-  credentialId?: string;
-}
+import { Experience, Education, Skill, Course, Certification } from "./types";
 
 export class DocumentCreator {
   public create([experiences, educations, skills, courses, certifications]: [Experience[], Education[], Skill[], Course[], Certification[]]): Document {
@@ -69,18 +31,18 @@ export class DocumentCreator {
                 const arr: Paragraph[] = [];
                 arr.push(
                   this.createInstitutionHeader(
-                    education.schoolName,
-                    `${education.startDate.year} - ${education.endDate.year}`
+                    education.school_name,
+                    `${education.start_year} - ${education.end_year}`
                   )
                 );
                 arr.push(
                   this.createRoleText(
-                    `${education.fieldOfStudy} - ${education.degree}`
+                    `${education.field_of_study} - ${education.degree}`
                   )
                 );
 
                 const bulletPoints = this.splitParagraphIntoBullets(
-                  education.address
+                  education.address || ''
                 );
                 bulletPoints.forEach(bulletPoint => {
                   arr.push(this.createBullet(bulletPoint));
@@ -96,19 +58,17 @@ export class DocumentCreator {
 
                 arr.push(
                   this.createInstitutionHeader(
-                    position.company.name,
+                    position.company_name,
                     this.createPositionDateText(
-                      position.startDate,
-                      position.endDate,
-                      position.isCurrent
+                      position.start_year,
+                      position.end_year,
+                      position.is_current
                     )
                   )
                 );
                 arr.push(this.createRoleText(position.title));
 
-                const bulletPoints = this.splitParagraphIntoBullets(
-                  position.summary
-                );
+                const bulletPoints = position.achievements
 
                 bulletPoints.forEach(bulletPoint => {
                   arr.push(this.createBullet(bulletPoint));
@@ -219,7 +179,7 @@ export class DocumentCreator {
   }
 
   // tslint:disable-next-line:no-any
-  public createSkillList(skills: any[]): Paragraph {
+  public createSkillList(skills: Skill[]): Paragraph {
     return new Paragraph({
       children: [new TextRun(skills.map(skill => skill.name).join(", ") + ".")]
     });

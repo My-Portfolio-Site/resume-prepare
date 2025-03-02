@@ -2,8 +2,9 @@
 
 import { useState } from 'react'
 import { achievements } from '@/lib/cv-data'
-import { PencilIcon } from '@/components/Icons'
+import { PencilIcon, DeleteIcon } from '@/components/Icons'
 import AddNewSectionButton from '@/components/AddNewSectionButton'
+import { Achievement } from '@/lib/types'
 
 type AchievementsEditFormProps = {
   editingItem: any;
@@ -49,13 +50,28 @@ export const AchievementsEditForm = ({ editingItem, onSave, onCancel }: Achievem
   )
 }
 
-export default function AchievementsTab({ onEdit }: { onEdit: (item: any) => void }) {
+export default function AchievementsTab({ onEdit, onDelete }: { onEdit: (item: Achievement) => void, onDelete: (item: Achievement) => void }) {
+  const emptyAchievement: Achievement ={
+    id: '',
+    user_id: '',
+    type: 'achievement' as const,
+    name: '',
+    issuer: '',
+    skills: [],
+    created_at: ''
+  }
   return (
-    <div className='space-y-4'>
-      <AddNewSectionButton onClick={() => onEdit({ name: '', issuer: '' })} />
+    <div className='space-y-4 min-w-[450px]'>
+      <AddNewSectionButton onClick={() => onEdit(emptyAchievement)} />
       {achievements.map((achievement, index) => (
         <div key={index} className='border p-4 rounded-lg bg-white relative'>
           <div className='absolute top-2 right-2'>
+          <button
+              onClick={() => onDelete(achievement)}
+              className='p-1 text-red-500 hover:text-red-700'
+            >
+              <DeleteIcon className='h-5 w-5 mr-2' />
+            </button>
             <button onClick={() => onEdit(achievement)} className='p-1 hover:text-blue-600'>
               <PencilIcon className='h-5 w-5' />
             </button>

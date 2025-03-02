@@ -12,5 +12,12 @@
       "binding": "BUCKET",
       "bucket_name": "personal-documents"
     }
+  ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "personal-data-db",
+      "database_id": "425783a5-402e-4959-b82e-d7f0abe23a93"
+    }
   ]
 }

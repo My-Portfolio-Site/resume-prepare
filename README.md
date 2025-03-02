@@ -1,67 +1,135 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`c3`](https://developers.cloudflare.com/pages/get-started/c3).
+npx wrangler d1 export personal-data-db --output=./users_schema.sql --no-data
 
-## Getting Started
+npx wrangler d1 execute personal-data-db --local --file=./lib/users_schema.sql
 
-First, run the development server:
+npx wrangler d1 migrations apply personal-data-db --local
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+=============================================================================
+-- Insert an experience with achievements and technologies as JSON
+INSERT INTO experiences (
+    user_id, is_current, summary, title,
+    start_month, start_year, end_month, end_year,
+    company_name, company_location, company_industry,
+    achievements, technologies
+) VALUES (
+    89899, 1, 'Full-stack developer working with Angular and Java. Working for the iShares platform',
+    'Associate Software Developer', 11, 2017, 11, 2025,
+    'BlackRock', 'London, UK', 'Financial Services',
+    '["Improved application performance by 40% through optimization", "Led team of 3 developers in new feature development", "Implemented CI/CD pipeline reducing deployment time by 60%"]',
+    '["Angular 12", "Java 11", "Spring Boot", "PostgreSQL", "AWS"]'
+);
+=============================================================================
+INSERT INTO education (
+    id,
+    user_id,
+    degree,
+    field_of_study,
+    percentage,
+    cgpa,
+    school_name,
+    university,
+    address,
+    start_month,
+    start_year,
+    end_month,
+    end_year
+) VALUES (
+    123,        -- Example education ID (replace with your desired ID, or NULL/omit if auto-increment)
+    89899,      -- User ID (replace with the actual user_id)
+    'Master of Science', -- Degree
+    'Computer Science',  -- Field of Study
+    85.5,       -- Percentage
+    3.8,        -- CGPA
+    'Example School Name', -- School Name
+    'Example University Name', -- University (optional)
+    '123 Example Address, City, Country', -- Address (optional)
+    9,          -- Start Month (September)
+    2010,       -- Start Year
+    6,          -- End Month (June)
+    2012        -- End Year
+);
+=============================================================================
+INSERT INTO user_accomplishments (
+    id,                 -- UUID (TEXT) - REQUIRED
+    user_id,            -- INTEGER - REQUIRED
+    type,               -- TEXT - REQUIRED, must be 'achievement'
+    issuer,             -- TEXT - REQUIRED
+    name,               -- TEXT - REQUIRED
+    completed,          -- TEXT - OPTIONAL (NULL is acceptable)
+    credential_id,      -- TEXT - OPTIONAL (NULL is acceptable)
+    skills              -- JSON - OPTIONAL (can be NULL or empty JSON array '[]')
+) VALUES (
+    'uuid-for-achievement-1',  -- Replace with actual UUID
+    89899,                      -- Replace with actual user_id
+    'achievement',
+    'Example Company',          -- Issuer of the achievement
+    'Employee of the Month - Q3 2024', -- Name of the achievement
+    NULL,                       -- completed - Not typically relevant for general achievements
+    NULL,                       -- credential_id - Not typically relevant for general achievements
+    '["Teamwork", "Leadership", "Performance"]' -- Example skills (JSON array of strings)
+);
+-----------------------------------------------------------------------------
+INSERT INTO user_accomplishments (
+    id,                 -- UUID (TEXT) - REQUIRED
+    user_id,            -- INTEGER - REQUIRED
+    type,               -- TEXT - REQUIRED, must be 'course'
+    issuer,             -- TEXT - REQUIRED
+    name,               -- TEXT - REQUIRED
+    completed,          -- TEXT - REQUIRED (Date of completion)
+    credential_id,      -- TEXT - OPTIONAL (NULL is acceptable for courses)
+    skills              -- JSON - OPTIONAL (can be NULL or empty JSON array '[]')
+) VALUES (
+    'uuid-for-course-1',      -- Replace with actual UUID
+    89899,                      -- Replace with actual user_id
+    'course',
+    'Coursera',                 -- Issuer of the course (platform or provider)
+    'Deep Learning Specialization', -- Name of the course
+    '2024-02-28',               -- completed - Completion date (YYYY-MM-DD or a format you prefer)
+    NULL,                       -- credential_id - Often not provided for courses
+    '["Deep Learning", "Machine Learning", "Python", "TensorFlow"]' -- Example skills (JSON array of strings)
+);
+-----------------------------------------------------------------------------
+INSERT INTO user_accomplishments (
+    id,                 -- UUID (TEXT) - REQUIRED
+    user_id,            -- INTEGER - REQUIRED
+    type,               -- TEXT - REQUIRED, must be 'skill'
+    issuer,             -- TEXT - OPTIONAL (but recommended to provide context)
+    name,               -- TEXT - REQUIRED (Name of the skill proficiency/achievement)
+    completed,          -- TEXT - OPTIONAL (NULL is often acceptable for skills)
+    credential_id,      -- TEXT - OPTIONAL (NULL is acceptable for skills)
+    skills              -- JSON - REQUIRED (Must list the skills related to this accomplishment)
+) VALUES (
+    'uuid-for-skill-1',       -- Replace with actual UUID
+    89899,                      -- Replace with actual user_id
+    'skill',
+    'Self-Assessment',        -- issuer - Context of the skill assessment (e.g., 'Self-Assessment', 'Project Experience', 'Team Lead Feedback') - OPTIONAL, but helpful
+    'Proficient in Python Programming', -- name - Description of the skill proficiency
+    NULL,                       -- completed - Not typically relevant for general skills
+    NULL,                       -- credential_id - Not typically relevant for general skills
+    '["Python", "Data Structures", "Algorithms", "Scripting"]' -- skills - JSON array of skills being claimed as proficient.
+);
+-----------------------------------------------------------------------------
 
-## Cloudflare integration
 
-Besides the `dev` script mentioned above `c3` has added a few extra scripts that allow you to integrate the application with the [Cloudflare Pages](https://pages.cloudflare.com/) environment, these are:
-  - `pages:build` to build the application for Pages using the [`@cloudflare/next-on-pages`](https://github.com/cloudflare/next-on-pages) CLI
-  - `preview` to locally preview your Pages application using the [Wrangler](https://developers.cloudflare.com/workers/wrangler/) CLI
-  - `deploy` to deploy your Pages application using the [Wrangler](https://developers.cloudflare.com/workers/wrangler/) CLI
 
-> __Note:__ while the `dev` script is optimal for local development you should preview your Pages application as well (periodically or before deployments) in order to make sure that it can properly work in the Pages environment (for more details see the [`@cloudflare/next-on-pages` recommended workflow](https://github.com/cloudflare/next-on-pages/blob/main/internal-packages/next-dev/README.md#recommended-development-workflow))
+=============================================================================
 
-### Bindings
+-- Example: Find user accomplishments of type 'skill' that mention "Angular" skill
+SELECT *
+FROM user_accomplishments
+WHERE type = 'skill'
+  AND json_extract(skills, '$') LIKE '%Angular%';
 
-Cloudflare [Bindings](https://developers.cloudflare.com/pages/functions/bindings/) are what allows you to interact with resources available in the Cloudflare Platform.
+-- Example: Get all 'skill' type accomplishments for a user
+SELECT *
+FROM user_accomplishments
+WHERE user_id = 89899
+  AND type = 'skill';
 
-You can use bindings during development, when previewing locally your application and of course in the deployed application:
+-- Example: Count skill-type accomplishments for each issuer
+SELECT issuer, COUNT(*) AS skill_achievement_count
+FROM user_accomplishments
+WHERE type = 'skill'
+GROUP BY issuer;
 
-- To use bindings in dev mode you need to define them in the `next.config.js` file under `setupDevBindings`, this mode uses the `next-dev` `@cloudflare/next-on-pages` submodule. For more details see its [documentation](https://github.com/cloudflare/next-on-pages/blob/05b6256/internal-packages/next-dev/README.md).
-
-- To use bindings in the preview mode you need to add them to the `pages:preview` script accordingly to the `wrangler pages dev` command. For more details see its [documentation](https://developers.cloudflare.com/workers/wrangler/commands/#dev-1) or the [Pages Bindings documentation](https://developers.cloudflare.com/pages/functions/bindings/).
-
-- To use bindings in the deployed application you will need to configure them in the Cloudflare [dashboard](https://dash.cloudflare.com/). For more details see the  [Pages Bindings documentation](https://developers.cloudflare.com/pages/functions/bindings/).
-
-#### KV Example
-
-`c3` has added for you an example showing how you can use a KV binding.
-
-In order to enable the example:
-- Search for javascript/typescript lines containing the following comment:
-  ```ts
-  // KV Example:
-  ```
-  and uncomment the commented lines below it (also uncomment the relevant imports).
-- In the `wrangler.jsonc` file add the following configuration line:
-  ```
-  "kv_namespaces": [{ "binding": "MY_KV_NAMESPACE", "id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" }],
-  ```
-- If you're using TypeScript run the `cf-typegen` script to update the `env.d.ts` file:
-  ```bash
-  npm run cf-typegen
-  # or
-  yarn cf-typegen
-  # or
-  pnpm cf-typegen
-  # or
-  bun cf-typegen
-  ```
-
-After doing this you can run the `dev` or `preview` script and visit the `/api/hello` route to see the example in action.
-
-Finally, if you also want to see the example work in the deployed application make sure to add a `MY_KV_NAMESPACE` binding to your Pages application in its [dashboard kv bindings settings section](https://dash.cloudflare.com/?to=/:account/pages/view/:pages-project/settings/functions#kv_namespace_bindings_section). After having configured it make sure to re-deploy your application.

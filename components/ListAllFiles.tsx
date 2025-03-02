@@ -23,7 +23,7 @@ export default function ListAllFiles() {
     setDownloadingFile(filename)
     try {
       const resp = await fetch(
-        `/api/download?filename=${encodeURIComponent(filename)}`,
+        `/api/documents/download?filename=${encodeURIComponent(filename)}`,
         {
           method: 'GET',
         }
@@ -51,7 +51,7 @@ export default function ListAllFiles() {
     setDeletingFile(filename)
     try {
       const resp = await fetch(
-        `/api/delete?filename=${encodeURIComponent(filename)}`,
+        `/api/documents/delete?filename=${encodeURIComponent(filename)}`,
         {
           method: 'DELETE',
         }
@@ -78,7 +78,7 @@ export default function ListAllFiles() {
     setFiles([])
 
     try {
-      const resp = await fetch('/api/list', {
+      const resp = await fetch('/api/documents/list', {
         method: 'GET',
       })
 
@@ -104,7 +104,7 @@ export default function ListAllFiles() {
   }, [])
 
   return (
-    <div className='m-4 flex flex-col gap-4'>
+    <div className='flex flex-col gap-4'>
       {/* Add a container div for the header with flex layout */}
       <FileUpload />
 

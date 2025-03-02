@@ -3,4 +3,5 @@
 
 interface CloudflareEnv {
   BUCKET: R2Bucket;
+  DB: D1Database;
 }

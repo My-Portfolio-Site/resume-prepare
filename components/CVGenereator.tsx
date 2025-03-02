@@ -8,6 +8,7 @@ import {
   certifications,
 } from '@lib/cv-data'
 import { DocumentCreator } from '@lib/cv-generator'
+import { Skill, Course, Certification } from '@/lib/types'
 
 export default function CVGenerator() {
   async function uploadToR2(data: FormData) {
@@ -23,9 +24,9 @@ export default function CVGenerator() {
     const doc = documentCreator.create([
       experiences,
       education,
-      skills,
-      courses,
-      certifications,
+      skills as Skill[],
+      courses as Course[],
+      certifications as Certification[],
     ])
 
     Packer.toBlob(doc).then((blob) => {
@@ -41,7 +42,7 @@ export default function CVGenerator() {
 
   }
   return (
-    <div className='flex flex-col items-center m-4 bg-white justify-center p-6 rounded-md'>
+    <div className='flex flex-col items-center w-full bg-white justify-center p-6 rounded-md'>
       <button
         onClick={generate}
         className='px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 
