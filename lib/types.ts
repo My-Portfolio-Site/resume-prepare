@@ -1,3 +1,11 @@
+// ...existing code...
+
+export interface User {
+  id: string;      // User's unique identifier
+  name: string | null;    // User's display name
+  email: string;   // User's email address
+  image: string | null;   // URL to user's profile image
+}
 
 export interface Experience {
   id: string; // UUID

@@ -3,19 +3,49 @@
 import { D1Database } from '@cloudflare/workers-types'; // Import D1 types if using Cloudflare Workers
 import { nanoid } from 'nanoid'
 
-
-interface Env {
-  DB: D1Database; // Define environment variable for D1 database (adjust name if needed)
-}
-
-// Helper function to generate UUID (if not using a library in your environment)
-function generateUUID(): string {
+// Helper function to generate UUID (if not using a library in your D1Databaseironment)
+export function generateUUID(): string {
   return nanoid();
 }
 
-// 1. Insert 'achievement' type accomplishment
+// 1. Insert 'user'
+export async function createUser(
+  db: D1Database,
+  name: string,
+  email: string,
+  image: string
+): Promise<D1Result<any>> {
+  const id = generateUUID();
+
+  return await db.prepare(`
+    INSERT INTO users (
+      id,
+      name,
+      email,
+      image
+    ) VALUES (?, ?, ?, ?)
+  `)
+    .bind(id, name, email, image)
+    .run();
+}
+
+// 2. Update 'user'
+export async function updateUser(
+  db: D1Database,
+  name: string,
+  email: string,
+  image: string
+): Promise<D1Result<any>> {
+
+  return await db.prepare("UPDATE users SET name = ?, image = ? WHERE email = ?")
+    .bind(name, image, email)
+    .run();
+}
+
+
+// 3. Insert 'achievement' type accomplishment
 export async function insertAchievement(
-  env: Env,
+  db: D1Database,
   userId: number,
   issuer: string,
   name: string,
@@ -24,7 +54,7 @@ export async function insertAchievement(
   const id = generateUUID();
   const skillsJSON = skills ? JSON.stringify(skills) : null; // Convert skills array to JSON string
 
-  return await env.DB.prepare(`
+  return await db.prepare(`
     INSERT INTO user_accomplishments (
       id,
       user_id,
@@ -40,7 +70,7 @@ export async function insertAchievement(
 
 // 2. Insert 'certification' type accomplishment
 export async function insertCertification(
-  env: Env,
+  db: D1Database,
   userId: number,
   issuer: string,
   name: string,
@@ -51,7 +81,7 @@ export async function insertCertification(
   const id = generateUUID();
   const skillsJSON = skills ? JSON.stringify(skills) : null;
 
-  return await env.DB.prepare(`
+  return await db.prepare(`
     INSERT INTO user_accomplishments (
       id,
       user_id,
@@ -69,7 +99,7 @@ export async function insertCertification(
 
 // 3. Insert 'course' type accomplishment
 export async function insertCourse(
-  env: Env,
+  db: D1Database,
   userId: number,
   issuer: string,
   name: string,
@@ -79,7 +109,7 @@ export async function insertCourse(
   const id = generateUUID();
   const skillsJSON = skills ? JSON.stringify(skills) : null;
 
-  return await env.DB.prepare(`
+  return await db.prepare(`
     INSERT INTO user_accomplishments (
       id,
       user_id,
@@ -96,7 +126,7 @@ export async function insertCourse(
 
 // 4. Insert 'skill' type accomplishment
 export async function insertSkillAccomplishment( // Renamed to avoid confusion with 'skills' table
-  env: Env,
+  db: D1Database,
   userId: number,
   name: string, // Name of the skill proficiency/achievement
   skills: string[], // Skills array - REQUIRED for 'skill' type
@@ -105,7 +135,7 @@ export async function insertSkillAccomplishment( // Renamed to avoid confusion w
   const id = generateUUID();
   const skillsJSON = JSON.stringify(skills); // Skills are REQUIRED for 'skill' type
 
-  return await env.DB.prepare(`
+  return await db.prepare(`
     INSERT INTO user_accomplishments (
       id,
       user_id,
@@ -122,7 +152,7 @@ export async function insertSkillAccomplishment( // Renamed to avoid confusion w
 
 // 5. Insert into 'experiences' table
 export async function insertExperience(
-  env: Env,
+  db: D1Database,
   userId: number,
   isCurrent: boolean,
   title: string,
@@ -141,7 +171,7 @@ export async function insertExperience(
   const achievementsJSON = achievements ? JSON.stringify(achievements) : null;
   const technologiesJSON = technologies ? JSON.stringify(technologies) : null;
 
-  return await env.DB.prepare(`
+  return await db.prepare(`
     INSERT INTO experiences (
       id,
       user_id,
@@ -183,7 +213,7 @@ export async function insertExperience(
 
 // 6. Insert into 'education' table
 export async function insertEducation(
-  env: Env,
+  db: D1Database,
   userId: number,
   degree: string,
   schoolName: string,
@@ -199,7 +229,7 @@ export async function insertEducation(
 ): Promise<D1Result<any>> {
   const id = generateUUID();
 
-  return await env.DB.prepare(`
+  return await db.prepare(`
     INSERT INTO education (
       id,
       user_id,
