@@ -1,4 +1,4 @@
-'use server'
+export const runtime = 'edge';
 
 import CVGenerator from '@/components/CVGenereator'
 

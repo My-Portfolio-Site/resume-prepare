@@ -7,6 +7,9 @@
   "observability": {
     "enabled": true
   },
+  "vars": {
+    "NODE_VERSION": "23.1.0"
+  },
   "r2_buckets": [
     {
       "binding": "BUCKET",

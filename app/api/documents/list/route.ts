@@ -4,7 +4,7 @@ import { getRequestContext } from '@cloudflare/next-on-pages'
 import { type NextRequest, type NextResponse } from 'next/server'
 import { auth } from '@/lib/auth';
 
-export async function GET(request: NextRequest, response: NextResponse) {
+export async function GET() {
   try {
     // Check if user is authenticated
     const session = await auth()
