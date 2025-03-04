@@ -26,7 +26,7 @@ export default function CVGenerator() {
   }
 
   function generate() {
-    if (!window.confirm(`Are you sure you want to generate ${fileName}.docx?`)) {
+    if (!window.confirm(`Are you sure you want to generate '${fileName}.docx'?`)) {
       return
     }
     const documentCreator = new DocumentCreator()
@@ -41,7 +41,7 @@ export default function CVGenerator() {
     Packer.toBlob(doc).then(async (blob) => {
       console.log(blob)
       // saveAs(blob, 'cv.docx')
-      var file = new File([blob], fileName, {
+      var file = new File([blob], `${fileName}.docx`, {
         type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
       })
       const data = new FormData()
