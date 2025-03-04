@@ -20,16 +20,13 @@
 		"clsx": "^2.1.1",
 		"docx": "^9.2.0",
 		"file-saver": "^2.0.5",
-		"lucide-react": "^0.476.0",
 		"nanoid": "^5.1.2",
 		"next": "15.1.6",
 		"next-auth": "^5.0.0-beta.25",
 		"react": "^19.0.0",
-		"react-doc-viewer": "^0.1.14",
 		"react-dom": "^19.0.0",
 		"tailwind-merge": "^3.0.2",
-		"tailwindcss-animate": "^1.0.7",
-		"util": "^0.12.5"
+		"tailwindcss-animate": "^1.0.7"
 	},
 	"devDependencies": {
 		"@cloudflare/next-on-pages": "^1.13.8",
