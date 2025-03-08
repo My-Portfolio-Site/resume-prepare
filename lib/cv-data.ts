@@ -1,3 +1,23 @@
+export const profile = {
+    id: '1',
+    user_id: '1',
+    first_name: 'John',
+    last_name: 'Doe',
+    headline: 'Senior Software Engineer',
+    summary: 'Experienced software engineer with a passion for building scalable applications.',
+    about_me: 'I love coding and solving complex problems.',
+    email: 'john.doe@example.com',
+    phone: '+1234567890',
+    address: '123 Tech Street',
+    country: 'United States',
+    postal_code: '12345',
+    linkedin_url: 'https://linkedin.com/in/johndoe',
+    github_url: 'https://github.com/johndoe',
+    portfolio_url: 'https://johndoe.dev',
+    languages: ['English', 'Spanish'],
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString()
+  }
 export const experiences = [
   {
     id: "exp-001",

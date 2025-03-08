@@ -1,24 +1,35 @@
 // db_query.ts
+export const runtime = 'edge'
 import { D1Database } from '@cloudflare/workers-types';
-import { User, Experience, Education, Achievement, Certification, Course, Skill } from './types'; // Import interfaces
-
+import { User, Profile, Experience, Education, Achievement, Certification, Course, Skill } from './types'; // Import interfaces
+import { getRequestContext } from '@cloudflare/next-on-pages'
 
 // 1. Insert 'user'
 export async function findUser(
-  db: D1Database,
   email: string
 ): Promise<User | null> {
+  const {env} = getRequestContext()
 
-  return await db.prepare("SELECT * FROM users WHERE email = ?")
+  return await env.DB.prepare("SELECT * FROM users WHERE email = ?")
   .bind(email)
   .first();
 }
 
+// 2. Get Profile records for a user
+export async function getProfileByUserId( userId: string): Promise<Profile | null> {
+  const {env} = getRequestContext()
+  
+  return await env.DB.prepare(`SELECT * FROM profiles WHERE user_id = ?`)
+    .bind(userId)
+    .first();
+}
 
 // --- Query Functions for experiences table ---
 // 1. Get all experiences for a user
-export async function getExperiencesByUserId(db: D1Database, userId: string): Promise<Experience[]> {
-  const { results } = await db.prepare(`
+export async function getExperiencesByUserI (userId: string): Promise<Experience[]> {
+  const {env} = getRequestContext()
+
+  const { results } = await env.DB.prepare(`
     SELECT * FROM experiences WHERE user_id = ? ORDER BY start_year DESC, start_month DESC
   `)
     .bind(userId)
@@ -29,9 +40,11 @@ export async function getExperiencesByUserId(db: D1Database, userId: string): Pr
 // --- Query Functions for education table ---
 
 // 4. Get all education records for a user
-export async function getEducationByUserId(db: D1Database, userId: string): Promise<Education[]> {
-  const { results } = await db.prepare(`
-    SELECT * FROM education WHERE user_id = ? ORDER BY start_year DESC, start_month DESC
+export async function getEducationByUserI (userId: string): Promise<Education[]> {
+  const {env} = getRequestContext()
+
+  const { results } = await env.DB.prepare(`
+    SELECT * FROM educations WHERE user_id = ? ORDER BY start_year DESC, start_month DESC
   `)
     .bind(userId)
     .all<Education>();
@@ -40,10 +53,12 @@ export async function getEducationByUserId(db: D1Database, userId: string): Prom
 
 // --- Query Functions for user_accomplishments table ---
 // 8. Get achievement accomplishments for a user
-export async function getAchievementsByUserId(db: D1Database, userId: string): Promise<Achievement[]> {
+export async function getAchievementsByUserI (userId: string): Promise<Achievement[]> {
+  const {env} = getRequestContext()
+
   const type = 'achievement'
-  const { results } = await db.prepare(`
-    SELECT * FROM user_accomplishments WHERE user_id = ? AND type = ? ORDER BY created_at DESC
+  const { results } = await env.DB.prepare(`
+    SELECT * FROM accomplishments WHERE user_id = ? AND type = ? ORDER BY created_at DESC
   `)
     .bind(userId, type)
     .all<Achievement>();
@@ -51,10 +66,12 @@ export async function getAchievementsByUserId(db: D1Database, userId: string): P
 }
 
 // 9. Get certification accomplishments for a user
-export async function getCertificationsByUserId(db: D1Database, userId: string): Promise<Certification[]> {
+export async function getCertificationsByUserI (userId: string): Promise<Certification[]> {
+  const {env} = getRequestContext()
+
   const type = 'certification'
-  const { results } = await db.prepare(`
-    SELECT * FROM user_accomplishments WHERE user_id = ? AND type = ? ORDER BY created_at DESC
+  const { results } = await env.DB.prepare(`
+    SELECT * FROM accomplishments WHERE user_id = ? AND type = ? ORDER BY created_at DESC
   `)
     .bind(userId, type)
     .all<Certification>();
@@ -62,10 +79,12 @@ export async function getCertificationsByUserId(db: D1Database, userId: string):
 }
 
 // 10. Get course accomplishments for a user
-export async function getCoursesByUserId(db: D1Database, userId: string): Promise<Course[]> {
+export async function getCoursesByUserI (userId: string): Promise<Course[]> {
+  const {env} = getRequestContext()
+
   const type = 'course'
-  const { results } = await db.prepare(`
-    SELECT * FROM user_accomplishments WHERE user_id = ? AND type = ? ORDER BY created_at DESC
+  const { results } = await env.DB.prepare(`
+    SELECT * FROM accomplishments WHERE user_id = ? AND type = ? ORDER BY created_at DESC
   `)
     .bind(userId, type)
     .all<Course>();
@@ -73,10 +92,12 @@ export async function getCoursesByUserId(db: D1Database, userId: string): Promis
 }
 
 // 11. Get skill accomplishments for a user
-export async function getSkillsByUserId(db: D1Database, userId: string): Promise<Skill[]> {
+export async function getSkillsByUserI (userId: string): Promise<Skill[]> {
+  const {env} = getRequestContext()
+
   const type = 'skill'
-  const { results } = await db.prepare(`
-    SELECT * FROM user_accomplishments WHERE user_id = ? AND type = ? ORDER BY created_at DESC
+  const { results } = await env.DB.prepare(`
+    SELECT * FROM accomplishments WHERE user_id = ? AND type = ? ORDER BY created_at DESC
   `)
     .bind(userId, type)
     .all<Skill>();

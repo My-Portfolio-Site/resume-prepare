@@ -42,7 +42,6 @@ export async function updateUser(
     .run();
 }
 
-
 // 3. Insert 'achievement' type accomplishment
 export async function insertAchievement(
   db: D1Database,

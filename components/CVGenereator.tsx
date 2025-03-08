@@ -55,7 +55,7 @@ export default function CVGenerator() {
   }
   return (
     <>
-      <form onSubmit={generate} className='flex flex-col items-center w-full bg-white justify-center p-6 gap-3 rounded-md'>
+      <form onSubmit={generate} className='flex flex-col items-center bg-background bg-white dark:bg-gray-700 w-full justify-center p-6 gap-3 rounded-md'>
         <label htmlFor="fileName">File Name</label>
         <input
         id='fileName'
@@ -68,7 +68,7 @@ export default function CVGenerator() {
         />
         <button
           type='submit'
-          className='px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 
+          className='px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 dark:hover:bg-blue-700
         transition-colors duration-200 shadow-md hover:shadow-lg font-medium'
         >
           Generate CV with docx!

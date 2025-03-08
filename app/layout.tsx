@@ -26,21 +26,24 @@ export default async function RootLayout({
 }>) {
   const session = await auth()
   return (
-    <html lang='en' suppressHydrationWarning>
+    <html lang='en' className='light' suppressHydrationWarning>
+      <head />
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased flex md:mx-5 md:justify-center items-center gap-2 md:flex-row flex-col`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased flex md:mx-5 md:justify-center bg-gray-300 dark:bg-gray-900 dark:text-white items-center gap-2 md:flex-row flex-col`}
       >
-        {session?.user ? (
-          <NavBar
-            user={{
-              name: session?.user.name ?? '',
-              image: session?.user.image ?? '',
-            }}
-          />
-        ) : null}
-        <main className='md:py-8 w-[500px] lg:w-[700px] text-wrap h-lvh overflow-y-scroll items-center scrollbar-hidden px-3 md:p4'>
-          {children}
-        </main>
+          {session?.user ? (
+            <NavBar
+              user={{
+                name: session?.user.name ?? '',
+                image: session?.user.image ?? '',
+              }}
+            />
+          ) : null}
+          <main className='md:py-8 max-w-[500px] lg:max-w-[700px] w-full text-wrap md:max-h-lvh items-center px-3 md:p4'>
+            {children}
+            <div className='h-5'></div>
+          </main>
+          
       </body>
     </html>
   )

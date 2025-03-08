@@ -1,6 +1,7 @@
 npx wrangler d1 export personal-data-db --output=./users_schema.sql --no-data
 
 npx wrangler d1 execute personal-data-db --local --file=./lib/users_schema.sql
+npx wrangler d1 execute personal-data-db --local --file=./lib/details_schema.sql
 
 npx wrangler d1 migrations apply personal-data-db --local
 

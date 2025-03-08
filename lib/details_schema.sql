@@ -17,16 +17,11 @@ CREATE TABLE experiences (
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (user_id) REFERENCES users(id)
 );
-
 CREATE INDEX idx_experiences_user_id ON experiences(user_id);
-CREATE INDEX idx_experiences_is_current ON experiences(is_current);
 
 
 
-
-
-
-CREATE TABLE user_accomplishments (
+CREATE TABLE accomplishments (
   id TEXT PRIMARY KEY,
   user_id TEXT NOT NULL,
   type TEXT NOT NULL CHECK(type IN ('achievement', 'certification', 'course', 'skill')), -- Type discriminator now includes 'skill'
@@ -38,16 +33,12 @@ CREATE TABLE user_accomplishments (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (user_id) REFERENCES users(id)
 );
-
-CREATE INDEX idx_user_accomplishments_user_id ON user_accomplishments(user_id);
-
-
-
+CREATE INDEX idx_accomplishments_user_id ON accomplishments(user_id);
 
 
 
 -- User education table
-CREATE TABLE education (
+CREATE TABLE educations (
   id TEXT PRIMARY KEY,
   user_id TEXT NOT NULL,
   is_current BOOLEAN NOT NULL,
@@ -66,5 +57,29 @@ CREATE TABLE education (
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (user_id) REFERENCES users(id)
 );
+CREATE INDEX idx_educations_user_id ON educations(user_id);
 
-CREATE INDEX idx_education_user_id ON education(user_id);
+
+
+CREATE TABLE profiles (
+    id TEXT PRIMARY KEY,
+    user_id TEXT NOT NULL,
+    first_name TEXT NOT NULL,
+    last_name TEXT NOT NULL,
+    headline TEXT,       -- Professional headline/title
+    summary TEXT,        -- Professional summary/bio
+    about_me TEXT,
+    email TEXT NOT NULL,
+    phone TEXT,
+    address TEXT,
+    country TEXT,
+    postal_code TEXT,
+    linkedin_url TEXT,
+    github_url TEXT,
+    portfolio_url TEXT,
+    languages JSON,      -- Store language proficiencies as JSON array
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+CREATE INDEX idx_profiles_user_id ON profiles(user_id);

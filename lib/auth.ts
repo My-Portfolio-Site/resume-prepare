@@ -23,12 +23,14 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         const db = await getDatabase()
 
         // Check if user exists in database
-        const existingUser = await findUser(db, user.email || '');
+        const existingUser = await findUser(user.email || '');
+        
 
         if (!existingUser) {
           console.log(`User ${user.email} not found in database`);
           return `/login?error=AccessDenied`;  // Redirect with error
         }
+        user.id = existingUser.id
         if(!existingUser.name || !existingUser.image){
           console.log('Updating user: ', existingUser);
           await updateUser(db, user.name || '', user.email || existingUser.email, user.image || '')
@@ -40,8 +42,10 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         return `/login?error=DatabaseError`; // Redirect with different error
       }
     },
-    async session({ session, token }) {
+    async session({ session, token, user }) {
       // Add user data from the token to the session
+      // console.log('auth user:', session, token, user);
+
       if (token.sub) {
         session.user.id = token.sub;
       }

@@ -118,7 +118,7 @@ export default function SkillsTab({
       <AddNewSectionButton onClick={() => onEdit(emptySkill)} />
       {/* <div className='grid grid-cols-2 gap-4'> */}
       {skills.map((skill, index) => (
-        <div key={index} className='border p-4 rounded-lg bg-white relative'>
+        <div key={index} className=' p-4 rounded-lg bg-white dark:bg-gray-700 relative'>
           <div className='absolute top-2 right-2'>
             <button
               onClick={() => onDelete(skill)}
@@ -143,7 +143,7 @@ export default function SkillsTab({
             {skill.skills?.map((item, i) => (
               <span
                 key={i}
-                className='px-2 py-1 text-sm bg-gray-100 rounded-full'
+                className='px-2 py-1 text-sm bg-gray-100 dark:text-black rounded-full'
               >
                 {item}
               </span>

@@ -276,8 +276,8 @@ export default function ExperienceTab({ onEdit, onDelete }: { onEdit: (item: Exp
     <div className='space-y-4'>
       <AddNewSectionButton onClick={() => onEdit(emptyExperience)} />
       {experiences.map((exp, index) => (
-        <div key={index} className='border p-4 rounded-lg bg-white text-wrap relative'>
-          <div className='absolute top-2 right-2'>
+        <div key={index} className='p-4 rounded-lg bg-white dark:bg-gray-700 text-wrap relative'>
+          <div className='absolute top-4 right-2'>
             <button onClick={() => onDelete(exp)} className='p-1 text-red-500 hover:text-red-700'>
               <DeleteIcon className='h-5 w-5 mr-2' />
             </button>
@@ -286,11 +286,11 @@ export default function ExperienceTab({ onEdit, onDelete }: { onEdit: (item: Exp
             </button>
           </div>
           <h3 className='font-bold text-lg'>{exp.title}</h3>
-          <p className='text-gray-600'>{exp.company_name}</p>
-          <p className='text-sm text-gray-500'>
+          <p className='text-gray-600 dark:text-gray-200'>{exp.company_name}</p>
+          <p className='text-sm text-gray-500 dark:text-gray-300'>
             {exp.company_location} • {exp.company_industry}
           </p>
-          <p className='text-sm text-gray-500'>
+          <p className='text-sm text-gray-500 dark:text-gray-300'>
             {exp.start_month}/{exp.start_year} - 
             {exp.is_current ? 'Present' : `${exp.end_month}/${exp.end_year}`}
           </p>
@@ -312,7 +312,7 @@ export default function ExperienceTab({ onEdit, onDelete }: { onEdit: (item: Exp
               <h4 className='font-semibold'>Technologies:</h4>
               <div className='flex flex-wrap gap-2 mt-1'>
                 {exp.technologies.map((tech, i) => (
-                  <span key={i} className='px-2 py-1 bg-gray-100 rounded-full text-sm'>
+                  <span key={i} className='px-2 py-1 bg-gray-100 dark:text-black rounded-full text-sm'>
                     {tech}
                   </span>
                 ))}

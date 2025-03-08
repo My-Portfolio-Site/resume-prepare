@@ -150,7 +150,7 @@ export default function CertificationsTab({
     <div className='space-y-4 min-w-[450px]'>
       <AddNewSectionButton onClick={() => onEdit(emptyCertification)} />
       {certifications.map((cert, index) => (
-        <div key={index} className='border p-4 rounded-lg bg-white relative'>
+        <div key={index} className=' p-4 rounded-lg bg-white dark:bg-gray-700 relative'>
           <div className='absolute top-2 right-2'>
             <button
               onClick={() => onDelete(cert)}
@@ -166,10 +166,10 @@ export default function CertificationsTab({
             </button>
           </div>
           <h3 className='font-bold'>{cert.name}</h3>
-          <p className='text-gray-600'>{cert.issuer}</p>
-          <p className='text-sm text-gray-500'>Completed: {cert.completed}</p>
+          <p className='text-gray-600 dark:text-gray-200'>{cert.issuer}</p>
+          <p className='text-sm text-gray-500 dark:text-gray-100'>Completed: {cert.completed}</p>
           {cert.credential_id && (
-            <p className='text-sm text-gray-500'>ID: {cert.credential_id}</p>
+            <p className='text-sm text-gray-500 dark:text-gray-100'>ID: {cert.credential_id}</p>
           )}
           <div className='flex flex-wrap gap-2 mt-2'>
             {cert.skills.length < 1 && (
@@ -180,7 +180,7 @@ export default function CertificationsTab({
             {cert.skills?.map((item, i) => (
               <span
                 key={i}
-                className='px-2 py-1 text-sm bg-gray-100 rounded-full'
+                className='px-2 py-1 text-sm bg-gray-100 dark:text-black rounded-full'
               >
                 {item}
               </span>

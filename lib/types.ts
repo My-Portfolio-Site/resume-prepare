@@ -7,6 +7,27 @@ export interface User {
   image: string | null;   // URL to user's profile image
 }
 
+export interface Profile {
+  id: string;
+  user_id: string;
+  first_name: string;
+  last_name: string;
+  headline: string | null;
+  summary: string | null;
+  about_me: string | null;
+  email: string;
+  phone: string | null;
+  address: string | null;
+  country: string | null;
+  postal_code: string | null;
+  linkedin_url: string | null;
+  github_url: string | null;
+  portfolio_url: string | null;
+  languages: string[] | null;
+  created_at: string;
+  updated_at: string;
+}
+
 export interface Experience {
   id: string; // UUID
   user_id: string;

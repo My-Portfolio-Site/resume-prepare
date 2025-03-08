@@ -271,7 +271,7 @@ export default function EducationTab({ onEdit, onDelete }: { onEdit: (item: Educ
     <div className='space-y-4 min-w-[450px]'>
       <AddNewSectionButton onClick={() => onEdit(emptyEducation)} />
       {education.map((edu, index) => (
-        <div key={index} className='border p-4 rounded-lg bg-white relative'>
+        <div key={index} className=' p-4 rounded-lg bg-white dark:bg-gray-700 relative'>
           <div className='absolute top-2 right-2'>
           <button
               onClick={() => onDelete(edu)}
@@ -286,8 +286,8 @@ export default function EducationTab({ onEdit, onDelete }: { onEdit: (item: Educ
           <h3 className='font-bold text-lg'>{edu.degree} in {edu.field_of_study}</h3>
           <p className=''>{edu.school_name}</p>
           <p className='text-sm '>University: {edu.university}</p>
-          <p className='text-sm text-gray-500'>{edu.address}</p>
-          <p className='text-sm text-gray-500'>
+          <p className='text-sm text-gray-500 dark:text-gray-300'>{edu.address}</p>
+          <p className='text-sm text-gray-500 dark:text-gray-300'>
             {edu.start_month}/{edu.start_year} - {edu.is_current ? 'On Going': edu.end_month+'/'+edu.end_year}
           </p>
           <div className='mt-2 flex gap-4'>
